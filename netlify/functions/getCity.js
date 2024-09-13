@@ -2,7 +2,7 @@ exports.handler = async function(event, context) {
     const { city } = JSON.parse(event.body);
     const apiKey = process.env.VITE_WEATHER_API_KEY;
 
-    const url = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit={limit}&appid=${apiKey}`;
+    const url = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${apiKey}`;
   
     try {
       const response = await fetch(url);
