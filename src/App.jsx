@@ -34,11 +34,13 @@ function App() {
     }
   }
 
+
+
   return (
 
     <div className='flex flex-col m-auto max-w-[300px] sm:max-w-[400px] md:max-w-[600px] '>
       <Header />
-      <div className='flex m-auto mt-10 w-[100%] mb-10'>
+      <div className='flex m-auto mt-10 w-[100%]'>
         
           <input className='bg-black w-[100%] rounded-lg p-3 text-lg font-bold' type="text" placeholder='Enter location' onChange={(e)=>{
             setCity(e.target.value)
@@ -49,6 +51,11 @@ function App() {
             Seach
           </button>
 
+          
+
+          
+      </div>
+      <div className='bg-orange-500 p-4 mb-10'>
           
       </div>
       
