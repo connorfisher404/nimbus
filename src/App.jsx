@@ -73,7 +73,7 @@ function App() {
           <button className='bg-black ml-2 rounded-lg p-3 text-lg font-bold' onClick={()=>{
             getCity(city)
           }}>
-            Seach
+            Search
           </button>
 
           
