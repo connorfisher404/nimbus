@@ -1,9 +1,11 @@
 exports.handler = async function(event, context) {
-    const { city } = JSON.parse(event.body);
+    console.log(event.body)
+    const { latitude,longitude } = JSON.parse(event.body);
     const apiKey = process.env.VITE_WEATHER_API_KEY;
+    const lat = latitude
+    const lon = longitude
+    const url = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
 
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
-  
     try {
       const response = await fetch(url);
       if (!response.ok) {

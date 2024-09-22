@@ -1,22 +1,41 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Header from './components/Header';
 import Widgets from './components/Widgets';
+
 
 
 
 function App() {
   const [city,setCity] = useState('')
 
+  const [fetchedCity, setFetchedCity] = useState([])
+  const [weatherData, setWeatherData] = useState([])
+  const [cityModal, setCityModal] = useState(false)
+  const [widgitModal, setWidgitModal] = useState(false)
+  useEffect(()=>{
+    if(fetchedCity.length > 0){
+      setCityModal(true)
+      console.log(cityModal)
+    }else{
+      setCityModal(false)
+    }
+  }, [fetchedCity])
+
   
-  async function getWeather(city) {
+  
+  // continue with this connor !!!
+  async function getWeather(latitude, longitude) {
     try {
       const response = await fetch('/.netlify/functions/getWeather', {
         method: 'POST',
-        body: JSON.stringify({ city })
+        body: JSON.stringify({ latitude,longitude })
       });
       const data = await response.json();
+
       console.log(data);
+      setWeatherData(data)
     } catch (error) {
+      alert('Error fetching weather', error)
       console.error('Error fetching weather:', error);
     }
   }
@@ -28,13 +47,19 @@ function App() {
         body: JSON.stringify({city})
       })
       const data = await response.json();
+      setFetchedCity(data)
       console.log(data)
+
     }catch(error){
-      console.error('Error fetching city ', error)
+      alert('Error fetching city ', error)
+      console.error()
     }
   }
 
-
+  
+  
+  
+  
 
   return (
 
@@ -55,11 +80,54 @@ function App() {
 
           
       </div>
-      <div className='bg-orange-500 p-4 mb-10'>
-          
-      </div>
+      {cityModal ? <div className='bg-blue-500 p-4 mb-10 font-bold rounded-br-lg rounded-bl-lg'>
+                      {fetchedCity.map((index,key)=>{
+                        return(
+                          <div key={key} className='grid grid-cols-3'>
+                            <div onClick={()=>{                  
+                              getWeather(index.lat, index.lon)
+                              
+                              setTimeout(()=>{
+                                setWidgitModal(true)
+                                setFetchedCity([])
+                                setCityModal(false)
+                              },'1000')
+                              
+
+                            }} className='mb-2 cursor-pointer'>{index.name}</div> 
+                            <div onClick={()=>{
+                              getWeather(index.lat,index.lon)
+                              
+                              setTimeout(()=>{
+                                setWidgitModal(true)
+                                setFetchedCity([])
+                                setCityModal(false)
+                              },'1000')
+                              
+
+                            }} className='cursor-pointer'>{index.country}</div>
+                            <div onClick={()=>{
+                              getWeather(index.lat,index.lon)
+                              
+                              setTimeout(()=>{
+                                setWidgitModal(true)
+                                setFetchedCity([])
+                                setCityModal(false)
+                              },'1000')
+                              
+
+                              
+                            }} className='cursor-pointer'>{index.state}</div>
+                          </div>              
+
+                        )
+                        
+                      })}
+                  </div>: <div className='pb-10'></div>
+                }
       
-      <Widgets />
+      
+      {widgitModal ? <Widgets weatherData={weatherData} /> : ''}
     </div>
   )
 }
