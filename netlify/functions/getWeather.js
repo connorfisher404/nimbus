@@ -1,5 +1,5 @@
 exports.handler = async function(event, context) {
-    console.log(event.body)
+
     const { latitude,longitude } = JSON.parse(event.body);
     const apiKey = process.env.VITE_WEATHER_API_KEY;
     const lat = latitude

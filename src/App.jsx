@@ -15,7 +15,7 @@ function App() {
   useEffect(()=>{
     if(fetchedCity.length > 0){
       setCityModal(true)
-      console.log(cityModal)
+
     }else{
       setCityModal(false)
     }
@@ -32,7 +32,7 @@ function App() {
       });
       const data = await response.json();
 
-      console.log(data);
+
       setWeatherData(data)
     } catch (error) {
       alert('Error fetching weather', error)
@@ -48,11 +48,11 @@ function App() {
       })
       const data = await response.json();
       setFetchedCity(data)
-      console.log(data)
+
 
     }catch(error){
       alert('Error fetching city ', error)
-      console.error()
+      console.error('Error fetching weather:', error);
     }
   }
 

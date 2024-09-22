@@ -19,6 +19,7 @@ export default function Widgets(props) {
 
             } catch (error) {
                 console.error('Something went wrong: ', error)
+                alert('Something went wrong',error)
             }
             
         }
